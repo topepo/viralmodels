@@ -1,6 +1,6 @@
 Package: viralmodels
 Title: Viral Load and CD4 Lymphocytes Regression Models
-Version: 1.3.1
+Version: 1.3.1.9000
 Authors@R: 
     person("Juan Pablo", "Acuña González", , "acua6307@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0003-6029-6560"))
