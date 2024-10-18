@@ -36,3 +36,5 @@ Imports:
     tune,
     workflows,
     workflowsets
+URL: https://github.com/juanv66x/viralmodels
+BugReports: https://github.com/juanv66x/viralmodels/issues
