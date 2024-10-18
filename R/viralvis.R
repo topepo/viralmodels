@@ -1,19 +1,7 @@
-#' Competing models table
-#' 
-#' Trains and optimizes a series of regression models for viral load or CD4 
+#' Competing models plot
+#'
+#' Plots the rankings of a series of regression models for viral load or CD4 
 #' counts
-#' 
-#' @import dials
-#' @import dplyr
-#' @import hardhat
-#' @import parsnip
-#' @import recipes
-#' @import rsample
-#' @import tidyselect
-#' @import tune
-#' @import workflows
-#' @import workflowsets
-#' @importFrom stats as.formula
 #'
 #' @param traindata A data frame
 #' @param semilla A numeric value
@@ -22,14 +10,14 @@
 #' @param logbase The base for logarithmic transformations.
 #' @param pliegues A numeric value
 #' @param repeticiones A numeric value
-#' @param rejilla A numeric value
+#' @param rejilla A numeric value 
 #'
-#' @return A table of competing models
+#' @return A plot of ranking models
 #' @export
 #'
 #' @examples
 #' \donttest{
-#' library(dplyr)
+#' library(tidyverse)
 #' library(baguette)
 #' library(kernlab)
 #' library(kknn)
@@ -37,12 +25,13 @@
 #' library(rules)
 #' library(glmnet)
 #' # Define the function to impute values in the undetectable range
-#' impute_undetectable <- function(column) {
 #' set.seed(123)
+#' impute_undetectable <- function(column) {
 #' ifelse(column <= 40,
 #'       rexp(sum(column <= 40), rate = 1/13) + 1,
 #'             column)
 #'             }
+#' # Apply the function to all vl columns using purrr's map_dfc
 #' library(viraldomain)
 #' data("viral", package = "viraldomain")
 #' viral_imputed <- viral |>
@@ -56,9 +45,9 @@
 #' repeticiones <- 1
 #' rejilla <- 1
 #' set.seed(123)
-#' viraltab(traindata, semilla, target, viralvars, logbase, pliegues, repeticiones, rejilla)
+#' viralvis(traindata, semilla, target, viralvars, logbase, pliegues, repeticiones, rejilla)
 #' }
-viraltab <- function(traindata, semilla, target, viralvars, logbase, pliegues, repeticiones, rejilla) {
+viralvis <- function(traindata, semilla, target, viralvars, logbase, pliegues, repeticiones, rejilla) {
   dplyr::bind_rows(
     workflowsets::workflow_set(
       preproc = list(simple = workflows::workflow_variables(outcomes = tidyselect::all_of(target), predictors = tidyselect::everything())),
@@ -121,7 +110,9 @@ viraltab <- function(traindata, semilla, target, viralvars, logbase, pliegues, r
         save_workflow = TRUE
       )
     ) |>
-    workflowsets::rank_results() |>
-    as.data.frame() |>
-    dplyr::mutate_if(is.numeric, round, digits = 2)
+    tune::autoplot(
+      rank_metric = "rmse",  # <- how to order models
+      metric = "rmse",       # <- which metric to visualize
+      select_best = TRUE     # <- one point per workflow
+    )
 }

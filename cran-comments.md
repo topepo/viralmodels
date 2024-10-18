@@ -2,4 +2,4 @@
 
 0 errors | 0 warnings | 1 note
 
-* Minor version unpdate
+* Minor version update

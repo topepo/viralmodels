@@ -1,4 +1,4 @@
-test_that("viraltab() works", {
+test_that("`viralmodel()` works", {
   
   library(tidyverse)
   library(baguette)
@@ -8,6 +8,7 @@ test_that("viraltab() works", {
   library(rules)
   library(glmnet)
   # Define the function to impute values in the undetectable range
+  set.seed(123)
   impute_undetectable <- function(column) {
     ifelse(column <= 40,
            rexp(sum(column <= 40), rate = 1/13) + 1,
@@ -19,13 +20,15 @@ test_that("viraltab() works", {
   viral_imputed <- viral |>
     mutate(across(starts_with("vl"), ~impute_undetectable(.x)))
   traindata <- viral_imputed
-  semilla <- 123
+  semilla <- 1501
   target <- "cd_2022"
   viralvars <- c("vl_2019", "vl_2021", "vl_2022")
   logbase <- 10
   pliegues <- 2
   repeticiones <- 1
   rejilla <- 1
-  expect_snapshot(print(viraltab(traindata, semilla, target, viralvars, logbase, pliegues, repeticiones, rejilla)))
+  modelo <- "simple_rf"
+  set.seed(123)
+  expect_snapshot(print(viralmodel(traindata, semilla, target, viralvars, logbase, pliegues, repeticiones, rejilla, modelo)))
 })
 
