@@ -1,6 +1,6 @@
 Package: viralmodels
 Title: Viral Load and CD4 Lymphocytes Regression Models
-Version: 0.0.0.9000
+Version: 1.3.1
 Authors@R: 
     person("Juan Pablo", "Acuña González", , "acua6307@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0003-6029-6560"))
@@ -8,7 +8,31 @@ Description: Provides a comprehensive framework for building, evaluating, and vi
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Suggests: 
-    testthat (>= 3.0.0)
+    baguette,
+    Cubist,
+    earth,
+    glmnet,
+    kernlab,
+    kknn,
+    ranger,
+    rules,
+    testthat (>= 3.0.0),
+    tidyverse,
+    vdiffr,
+    viraldomain
 Config/testthat/edition: 3
+Imports: 
+    dials,
+    dplyr,
+    hardhat,
+    parsnip,
+    purrr,
+    recipes,
+    rsample,
+    stats,
+    tidyselect,
+    tune,
+    workflows,
+    workflowsets
