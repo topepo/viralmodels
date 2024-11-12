@@ -57,7 +57,8 @@
 #' repeticiones <- 1
 #' rejilla <- 1
 #' set.seed(123)
-#' viraltab(traindata, semilla, target, viralvars, logbase, pliegues, repeticiones, rejilla, rank_output = TRUE)
+#' viraltab(traindata, semilla, target, viralvars, logbase, pliegues, 
+#' repeticiones, rejilla, rank_output = TRUE)
 #' }
 viraltab <- function(traindata, semilla, target, viralvars, logbase, pliegues, repeticiones, rejilla, rank_output = TRUE) {
   

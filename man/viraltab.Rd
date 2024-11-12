@@ -12,7 +12,8 @@ viraltab(
   logbase,
   pliegues,
   repeticiones,
-  rejilla
+  rejilla,
+  rank_output = TRUE
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ viraltab(
 \item{repeticiones}{A numeric value}
 
 \item{rejilla}{A numeric value}
+
+\item{rank_output}{Logical value. If TRUE, returns ranked output; if FALSE, returns unranked output.}
 }
 \value{
 A table of competing models
@@ -68,6 +71,7 @@ pliegues <- 2
 repeticiones <- 1
 rejilla <- 1
 set.seed(123)
-viraltab(traindata, semilla, target, viralvars, logbase, pliegues, repeticiones, rejilla)
+viraltab(traindata, semilla, target, viralvars, logbase, pliegues, 
+repeticiones, rejilla, rank_output = TRUE)
 }
 }

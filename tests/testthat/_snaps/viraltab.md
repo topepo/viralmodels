@@ -2,7 +2,7 @@
 
     Code
       print(viraltab(traindata, semilla, target, viralvars, logbase, pliegues,
-        repeticiones, rejilla))
+        repeticiones, rejilla, rank_output = TRUE))
     Message
       i Creating pre-processing data to finalize unknown parameter: mtry
     Output
