@@ -2,9 +2,17 @@
 % Please edit documentation in R/viralpreds.R
 \name{viralpreds}
 \alias{viralpreds}
-\title{Train and Evaluate Many Regression Models for Predicting Viral Load or CD4 Counts}
+\title{Predict Viral Load or CD4 Count using Many Models}
 \usage{
-viralpreds(target, pliegues, repeticiones, rejilla, semilla, data)
+viralpreds(
+  target,
+  pliegues,
+  repeticiones,
+  rejilla,
+  semilla,
+  data,
+  prediction_type = "full"
+)
 }
 \arguments{
 \item{target}{A character string specifying the column name of the target variable to predict.}
@@ -18,15 +26,19 @@ viralpreds(target, pliegues, repeticiones, rejilla, semilla, data)
 \item{semilla}{An integer specifying the seed for random number generation to ensure reproducibility.}
 
 \item{data}{A data frame containing the predictors and the target variable.}
+
+\item{prediction_type}{A character string specifying the type of predictions to perform.
+Use \code{"full"} (default) to perform predictions on the full dataset at once, or \code{"batch"} to perform predictions in a smaller
+size batches of data.}
 }
 \value{
 A list containing two elements: \code{predictions} (a vector of predicted values for the target variable)
 and \code{RMSE} (the root mean square error of the best model).
 }
 \description{
-This function builds, trains, and evaluates a set of statistical learning models for predicting viral load or CD4 counts.
-It implements multiple pre-processing options (simple, normalized, full quadratic) and model types (MARS, neural network, KNN).
-The best model is selected based on RMSE.
+This function predicts viral load or CD4 count values based on multiple machine learning models using cross-validation.
+It allows users to specify two types of predictions: normal predictions on the full dataset or observation-by-observation
+(obs-by-obs) predictions.
 }
 \examples{
 \donttest{

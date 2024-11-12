@@ -23,6 +23,7 @@
 #' @param pliegues A numeric value
 #' @param repeticiones A numeric value
 #' @param rejilla A numeric value
+#' @param rank_output Logical value. If TRUE, returns ranked output; if FALSE, returns unranked output.
 #'
 #' @return A table of competing models
 #' @export
@@ -56,10 +57,12 @@
 #' repeticiones <- 1
 #' rejilla <- 1
 #' set.seed(123)
-#' viraltab(traindata, semilla, target, viralvars, logbase, pliegues, repeticiones, rejilla)
+#' viraltab(traindata, semilla, target, viralvars, logbase, pliegues, repeticiones, rejilla, rank_output = TRUE)
 #' }
-viraltab <- function(traindata, semilla, target, viralvars, logbase, pliegues, repeticiones, rejilla) {
-  dplyr::bind_rows(
+viraltab <- function(traindata, semilla, target, viralvars, logbase, pliegues, repeticiones, rejilla, rank_output = TRUE) {
+  
+  # Define competing models with workflows and preprocessing
+  results <- dplyr::bind_rows(
     workflowsets::workflow_set(
       preproc = list(simple = workflows::workflow_variables(outcomes = tidyselect::all_of(target), predictors = tidyselect::everything())),
       models = list(rf = parsnip::rand_forest(mtry = hardhat::tune(), min_n = hardhat::tune(), trees = hardhat::tune()) |>
@@ -120,8 +123,19 @@ viraltab <- function(traindata, semilla, target, viralvars, logbase, pliegues, r
         parallel_over = "everything",
         save_workflow = TRUE
       )
-    ) |>
-    workflowsets::rank_results() |>
-    as.data.frame() |>
-    dplyr::mutate_if(is.numeric, round, digits = 2)
+    ) 
+  
+  # Conditionally rank results based on the rank_output parameter
+  output <- if (rank_output) {
+    results |>
+      workflowsets::rank_results() |>
+      as.data.frame() |>
+      dplyr::mutate_if(is.numeric, round, digits = 2)
+  } else {
+    results #|>
+    #as.data.frame() |>
+    #dplyr::mutate_if(is.numeric, round, digits = 2)
+  }
+  
+  return(output)
 }

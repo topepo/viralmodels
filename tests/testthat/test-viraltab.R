@@ -26,6 +26,6 @@ test_that("viraltab() works", {
   pliegues <- 2
   repeticiones <- 1
   rejilla <- 1
-  expect_snapshot(print(viraltab(traindata, semilla, target, viralvars, logbase, pliegues, repeticiones, rejilla)))
+  expect_snapshot(print(viraltab(traindata, semilla, target, viralvars, logbase, pliegues, repeticiones, rejilla, rank_output = TRUE)))
 })
 
