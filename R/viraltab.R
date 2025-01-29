@@ -5,7 +5,6 @@
 #' 
 #' @import dials
 #' @import dplyr
-#' @import hardhat
 #' @import parsnip
 #' @import recipes
 #' @import rsample
