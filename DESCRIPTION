@@ -26,8 +26,8 @@ Config/testthat/edition: 3
 Imports: 
     dials,
     dplyr,
-    hardhat,
-    parsnip,
+    hardhat (>= 1.4.1),
+    parsnip (>= 1.2.1.9004),
     purrr,
     recipes,
     rsample,
@@ -36,5 +36,8 @@ Imports:
     tune,
     workflows,
     workflowsets
+Remotes:
+    tidymodels/hardhat#280,
+    tidymodels/parsnip,
 URL: https://github.com/juanv66x/viralmodels
 BugReports: https://github.com/juanv66x/viralmodels/issues
